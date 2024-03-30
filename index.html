@@ -99,6 +99,48 @@
 <h1 id="static-cast"><a href="#static-cast" class="headerlink" title="static_cast&lt;&gt;"></a>static_cast&lt;&gt;</h1><p>提供编译器认为安全的类型转换<br>转换有效：<img src="/2024/03/30/3-30-1/image-2.png" alt="alt text"><br>转换无效：<img src="/2024/03/30/3-30-1/image-3.png" alt="alt text"> </p>
 <h1 id="reinterpret-cast"><a href="#reinterpret-cast" class="headerlink" title="reinterpret_cast&lt;&gt;"></a>reinterpret_cast&lt;&gt;</h1><p>类似c风格的强制类型转换， 不安全<br><img src="/2024/03/30/3-30-1/image-4.png" alt="alt text">转换有效</p>
 <h1 id="dynamic-cast"><a href="#dynamic-cast" class="headerlink" title="dynamic_cast&lt;&gt;"></a>dynamic_cast&lt;&gt;</h1><p>用于继承结构中，可以支持RTTI类型识别的上下转换<br><img src="/2024/03/30/3-30-1/image-5.png" alt="alt text"><br><img src="/2024/03/30/3-30-1/image-6.png" alt="alt text"></p>
+<h1 id="C-多线程编程"><a href="#C-多线程编程" class="headerlink" title="C++多线程编程"></a>C++多线程编程</h1><h2 id="相关库："><a href="#相关库：" class="headerlink" title="相关库："></a>相关库：</h2><pre><code>#include &lt;thread&gt;
+#include &lt;mutex&gt; //互斥锁
+#include &lt;condition_variable&gt;
+</code></pre>
+<h2 id="相关函数实现"><a href="#相关函数实现" class="headerlink" title="相关函数实现"></a>相关函数实现</h2><h3 id="线程："><a href="#线程：" class="headerlink" title="线程："></a>线程：</h3><pre><code>创建线程： thread t(func, a, b, ...); // 创建一个线程对象， func为线程函数， a， b...为函数参数
+t.join() //主线程要等待子线程t运行结束
+若主线程运行结束后，还留有未运行完成的子线程会报错
+可以用： t.detch() //把子线程t设置为和主线程分离的线程， 这样就不会报错
+std::this_thread命名空间， 里面封装了许多函数
+如：get_id() //获取线程id
+    sleep() // 睡眠
+    sleep_for() //睡多长时间
+    sleep_until() //睡到什么时候
+std::chrono命名空间， 封装了一些时间相关的函数
+</code></pre>
+<h3 id="锁："><a href="#锁：" class="headerlink" title="锁："></a>锁：</h3><pre><code>std::mutex mtx;//定义一把锁
+mtx.lock() , mtx.unlock() //加锁解锁
+但由于加锁后若直接return了可能unlock调用不到无法解锁， 造成死锁
+
+解决：
+std::mutex mtx;
+std::lock_guard&lt;std::mutex&gt; lck(mtx);
+使用lock_guard封装了一把锁，出了&#123;&#125;(作用域)后会自动析构，无需担心死锁问题，也不用手动加锁解锁,禁止了拷贝构造和拷贝复制，**所以不能用于函数参数或者返回值**
+
+std::mutex mtx;
+std::unique_lock&lt;std::mutex&gt; lck(mtx);
+使用unique_lock封装了一把锁，出了&#123;&#125;(作用域)后会自动析构，无需担心死锁问题，也不用手动加锁解锁
+禁止了拷贝构造和拷贝复制，**可以使用移动构造和移动复制**，类似于unique_ptr
+二者都运用了智能指针的思想
+</code></pre>
+<h3 id="线程通信："><a href="#线程通信：" class="headerlink" title="线程通信："></a>线程通信：</h3><h4 id="条件变量：condition-variable"><a href="#条件变量：condition-variable" class="headerlink" title="条件变量：condition_variable"></a>条件变量：condition_variable</h4><pre><code>常与一把互斥锁一起使用
+定义： condition_variable cv;
+cv.wait(lck); // lck 只能是unique_lock&lt;std::mutex&gt;类型
+作用：首先线程的状态变为等待状态， 第二步释放所拿到的锁
+cv.notify_all() / cv.notify_one()
+作用：唤醒其他的所有/一个线程，被唤醒的线程由等待变为*阻塞*状态，只有拿到锁后才变成就绪态
+</code></pre>
+<h4 id="信号量："><a href="#信号量：" class="headerlink" title="信号量："></a>信号量：</h4><pre><code>表示资源数量？
+P操作：资源数+1
+V操作：资源数-1
+二元信号量时作用跟互斥锁是类似的，但信号量所有线程都可以操作，但互斥锁只能由持有它的线程释放这把锁
+</code></pre>
 
       
     </div>
