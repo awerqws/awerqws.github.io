@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>4-4 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="设计模式之单例模式设计模式设计模式简单来说就是在解决某一类问题场景时，有既定的，优秀的代码框架可以直接使用，代码更易于维护，代码的可读性，复用性，可移植性，健壮性会更好 单例模式概念单例模式是指在内存中只会创建一个对象，且只能创建一个对象的设计模式，在程序中多次调用同一个对象且作用相同时，为了防止多次创建对象耗费大量内存，单例模式让程序在内存只创建一个对象，所有调用的地方共享该对象。 类型懒汉式在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4-4">
+<meta property="og:url" content="http://example.com/2024/04/04/4-4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="设计模式之单例模式设计模式设计模式简单来说就是在解决某一类问题场景时，有既定的，优秀的代码框架可以直接使用，代码更易于维护，代码的可读性，复用性，可移植性，健壮性会更好 单例模式概念单例模式是指在内存中只会创建一个对象，且只能创建一个对象的设计模式，在程序中多次调用同一个对象且作用相同时，为了防止多次创建对象耗费大量内存，单例模式让程序在内存只创建一个对象，所有调用的地方共享该对象。 类型懒汉式在">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2024/04/04/4-4/image-1.png">
+<meta property="og:image" content="http://example.com/2024/04/04/4-4/image-2.png">
+<meta property="article:published_time" content="2024-04-04T14:05:19.000Z">
+<meta property="article:modified_time" content="2024-04-04T15:21:13.029Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/04/04/4-4/image-1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-4-4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/04/04/4-4/" class="article-date">
+  <time class="dt-published" datetime="2024-04-04T14:05:19.000Z" itemprop="datePublished">2024-04-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      4-4
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="设计模式之单例模式"><a href="#设计模式之单例模式" class="headerlink" title="设计模式之单例模式"></a>设计模式之单例模式</h1><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>设计模式简单来说就是在解决某一类问题场景时，有既定的，优秀的代码框架可以直接使用，代码更易于维护，代码的可读性，复用性，可移植性，健壮性会更好</p>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>单例模式是指在内存中只会创建一个对象，且只能创建一个对象的设计模式，在程序中多次调用同一个对象且作用相同时，为了防止多次创建对象耗费大量内存，单例模式让程序在内存只创建一个对象，所有调用的地方共享该对象。</p>
+<h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h4><p>在真正使用该对象时才去创建该对象，因为很懒~<br>懒汉式创建对象的方法是在程序使用对象前，先判断该对象是否已经实例化（判空），若已实例化直接返回该类对象，否则则先执行实例化操作。<br><img src="/2024/04/04/4-4/image-1.png" alt="alt text"></p>
+<p>‘’’C++<br>class Singleton<br>{<br>public:<br>    static Singleton* getInstance()<br>    {<br>        if(single &#x3D;&#x3D; nullptr)<br>        {<br>            single &#x3D; new Singleton();<br>        }<br>        return single;<br>    }<br>private:<br>    Singleton(){cout &lt;&lt; “create” &lt;&lt; endl;};<br>    ~Singleton()<br>    {</p>
+<pre><code>    cout &lt;&lt; &quot;delete&quot; &lt;&lt;endl;
+        //delete single;
+    
+&#125;
+static Singleton* single;
+// 定义一个嵌套类，在该类的析构函数中，自动释放外层类的资源
+class CRelease
+&#123;
+public:
+    ~CRelease() &#123; delete single; &#125;
+&#125;;
+// 通过该静态对象在程序结束时自动析构的特点，来释放外层类的对象资源
+static CRelease release;
+</code></pre>
+<p>};<br>Singleton* Singleton::single &#x3D; nullptr;<br>Singleton::CRelease Singleton::release;<br>‘’’</p>
+<p>构造函数私有化，这样用户就不能任意定义该类型的对象了<br>定义该类型唯一的对象<br>通过一个static静态成员方法返回唯一的对象实例</p>
+<p>由于析构函数被声明为私有的，无法通过delete 来释放掉内存， 为防止内存泄漏（虽然当前进程结束的时候，系统反正会回收分配给它的所有资源，包括未回收的内存），在类内嵌套了一个类，利用static静态对象在程序结束时自动析构这么一个特征。</p>
+<h4 id="懒汉式如何保证只创建一个对象"><a href="#懒汉式如何保证只创建一个对象" class="headerlink" title="懒汉式如何保证只创建一个对象"></a>懒汉式如何保证只创建一个对象</h4><p>若多个线程同时判断 singleton &#x3D;&#x3D; nullptr， 则会同时创建一个对象，如何保证安全？<br>通过加互斥锁 ：</p>
+<p>‘’’C++<br>class Singleton<br>{<br>public:<br>    static Singleton* getInstance()<br>    {<br>        if(single &#x3D;&#x3D; nullptr)<br>        {<br>            &#x2F;&#x2F;获取锁<br>            if(single &#x3D;&#x3D; nullptr) &#x2F;&#x2F;锁加双重判断，第一个if是保证了只有第一次创建对象时加锁解锁，保证了效率<br>                                  &#x2F;&#x2F;第二个if是保证了多个线程进入后不会建立多个对象<br>            {</p>
+<pre><code>            single = new Singleton();
+        &#125;
+        //释放锁
+    &#125;
+    return single;
+&#125;
+</code></pre>
+<p>private:<br>    Singleton(){cout &lt;&lt; “create” &lt;&lt; endl;};<br>    ~Singleton()<br>    {</p>
+<pre><code>    cout &lt;&lt; &quot;delete&quot; &lt;&lt;endl;
+        //delete single;
+    
+&#125;
+static Singleton* single;
+// 定义一个嵌套类，在该类的析构函数中，自动释放外层类的资源
+class CRelease
+&#123;
+public:
+    ~CRelease() &#123; delete single; &#125;
+&#125;;
+// 通过该静态对象在程序结束时自动析构的特点，来释放外层类的对象资源
+static CRelease release;
+static mutex mtx;
+</code></pre>
+<p>};<br>Singleton* Singleton::single &#x3D; nullptr;<br>Singleton::CRelease Singleton::release;</p>
+<p>‘’’</p>
+<p>另一种保证线程安全且能在main结束后自动释放对象的写法：</p>
+<p>‘’’C++<br>#include <iostream><br>using namespace std;</p>
+<p>class CSingleton<br>{<br>public:<br>    static CSingleton* getInstance()<br>    {<br>        static CSingleton single; &#x2F;&#x2F; 懒汉式单例模式，定义唯一的对象实例<br>        return &single;<br>    }<br>private:<br>    static CSingleton *single;<br>    CSingleton() { cout &lt;&lt; “CSingleton()” &lt;&lt; endl; }<br>    <del>CSingleton() { cout &lt;&lt; “</del>CSingleton()” &lt;&lt; endl;}<br>    CSingleton(const CSingleton&amp;);<br>};<br>int main()<br>{<br>    CSingleton *p1 &#x3D; CSingleton::getInstance();<br>    CSingleton *p2 &#x3D; CSingleton::getInstance();<br>    CSingleton *p3 &#x3D; CSingleton::getInstance();<br>    return 0;<br>}<br>‘’’<br>对于static静态局部变量的初始化，编译器会自动对它的初始化进行加锁和解锁控制，使静态局部变量的初始化成为线程安全的操作，不用担心多个线程都会初始化静态局部变量，因此上面的懒汉单例模式是线程安全的单例模式</p>
+<p>静态局部变量的生命周期贯穿整个程序的运行时间，但是它们的初始化是延迟的，也就是说，它们只在首次被引用时初始化。这是C++标准中静态局部变量的一个重要特性，称为“Magic Statics”（也称作“函数内的静态局部变量”或“局部静态变量”）。</p>
+<p>当你在函数内部声明一个静态局部变量时，这个变量的存储空间在程序开始运行时就已经被分配了，但是它的初始化会被推迟到该函数首次被调用，且到达该变量声明的时候。一旦初始化完成，该变量的值就会在程序的后续调用中保持不变，直到程序结束。</p>
+<p>静态变量*******</p>
+<h4 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h4><p>在类加载时已经创建好了该单例对象，等待程序使用<br>在编码时就已经指明了要马上创建这个对象，不需要等到被调用时再去创建。<br><img src="/2024/04/04/4-4/image-2.png" alt="alt text"></p>
+<p>‘’’C++<br>class Singleton<br>{<br>public:<br>    static Singleton* getInstance()<br>    {<br>        return &single;<br>    }<br>private:<br>    Singleton();<br>    ~Singleton();<br>    static Singleton single;<br>}<br>Singleton Singleton::single;<br>‘’’</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/04/04/4-4/" data-id="cluldy9j90002pcw4c6pq93x3" data-title="4-4" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/04/01/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E9%A1%B9%E7%9B%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">线程池项目</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/04/4-4/">4-4</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/01/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E9%A1%B9%E7%9B%AE/">线程池项目</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/30/3-30-1/">3-30</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/26/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/">实验报告</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/25/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
