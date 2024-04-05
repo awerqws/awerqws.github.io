@@ -98,64 +98,29 @@
         <h1 id="设计模式之单例模式"><a href="#设计模式之单例模式" class="headerlink" title="设计模式之单例模式"></a>设计模式之单例模式</h1><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>设计模式简单来说就是在解决某一类问题场景时，有既定的，优秀的代码框架可以直接使用，代码更易于维护，代码的可读性，复用性，可移植性，健壮性会更好</p>
 <h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>单例模式是指在内存中只会创建一个对象，且只能创建一个对象的设计模式，在程序中多次调用同一个对象且作用相同时，为了防止多次创建对象耗费大量内存，单例模式让程序在内存只创建一个对象，所有调用的地方共享该对象。</p>
 <h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h4><p>在真正使用该对象时才去创建该对象，因为很懒~<br>懒汉式创建对象的方法是在程序使用对象前，先判断该对象是否已经实例化（判空），若已实例化直接返回该类对象，否则则先执行实例化操作。<br><img src="/2024/04/04/4-4/image-1.png" alt="alt text"></p>
-<p>‘’’<br>class Singleton<br>{<br>public:<br>    static Singleton* getInstance()<br>    {<br>        if(single &#x3D;&#x3D; nullptr)<br>        {<br>            single &#x3D; new Singleton();<br>        }<br>        return single;<br>    }<br>private:<br>    Singleton(){cout &lt;&lt; “create” &lt;&lt; endl;};<br>    ~Singleton()<br>    {</p>
-<pre><code>    cout &lt;&lt; &quot;delete&quot; &lt;&lt;endl;
-        //delete single;
-    
-&#125;
-static Singleton* single;
-// 定义一个嵌套类，在该类的析构函数中，自动释放外层类的资源
-class CRelease
-&#123;
-public:
-    ~CRelease() &#123; delete single; &#125;
-&#125;;
-// 通过该静态对象在程序结束时自动析构的特点，来释放外层类的对象资源
-static CRelease release;
-</code></pre>
-<p>};<br>Singleton* Singleton::single &#x3D; nullptr;<br>Singleton::CRelease Singleton::release;<br>‘’’</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(single == <span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            single = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> single;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>()&#123;cout &lt;&lt; <span class="string">&quot;create&quot;</span> &lt;&lt; endl;&#125;;</span><br><span class="line">    ~<span class="built_in">Singleton</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;delete&quot;</span> &lt;&lt;endl;</span><br><span class="line">			<span class="comment">//delete single;</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="type">static</span> Singleton* single;</span><br><span class="line">	<span class="comment">// 定义一个嵌套类，在该类的析构函数中，自动释放外层类的资源</span></span><br><span class="line">	<span class="keyword">class</span> <span class="title class_">CRelease</span></span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		~<span class="built_in">CRelease</span>() &#123; <span class="keyword">delete</span> single; &#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="comment">// 通过该静态对象在程序结束时自动析构的特点，来释放外层类的对象资源</span></span><br><span class="line">	<span class="type">static</span> CRelease release;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">Singleton* Singleton::single = <span class="literal">nullptr</span>;</span><br><span class="line">Singleton::CRelease Singleton::release;</span><br></pre></td></tr></table></figure>
+
 <p>构造函数私有化，这样用户就不能任意定义该类型的对象了<br>定义该类型唯一的对象<br>通过一个static静态成员方法返回唯一的对象实例</p>
 <p>由于析构函数被声明为私有的，无法通过delete 来释放掉内存， 为防止内存泄漏（虽然当前进程结束的时候，系统反正会回收分配给它的所有资源，包括未回收的内存），在类内嵌套了一个类，利用static静态对象在程序结束时自动析构这么一个特征。</p>
 <h4 id="懒汉式如何保证只创建一个对象"><a href="#懒汉式如何保证只创建一个对象" class="headerlink" title="懒汉式如何保证只创建一个对象"></a>懒汉式如何保证只创建一个对象</h4><p>若多个线程同时判断 singleton &#x3D;&#x3D; nullptr， 则会同时创建一个对象，如何保证安全？<br>通过加互斥锁 ：</p>
-<p>‘’’<br>class Singleton<br>{<br>public:<br>    static Singleton* getInstance()<br>    {<br>        if(single &#x3D;&#x3D; nullptr)<br>        {<br>            &#x2F;&#x2F;获取锁<br>            if(single &#x3D;&#x3D; nullptr) &#x2F;&#x2F;锁加双重判断，第一个if是保证了只有第一次创建对象时加锁解锁，保证了效率<br>                                  &#x2F;&#x2F;第二个if是保证了多个线程进入后不会建立多个对象<br>            {</p>
-<pre><code>            single = new Singleton();
-        &#125;
-        //释放锁
-    &#125;
-    return single;
-&#125;
-</code></pre>
-<p>private:<br>    Singleton(){cout &lt;&lt; “create” &lt;&lt; endl;};<br>    ~Singleton()<br>    {</p>
-<pre><code>    cout &lt;&lt; &quot;delete&quot; &lt;&lt;endl;
-        //delete single;
-    
-&#125;
-static Singleton* single;
-// 定义一个嵌套类，在该类的析构函数中，自动释放外层类的资源
-class CRelease
-&#123;
-public:
-    ~CRelease() &#123; delete single; &#125;
-&#125;;
-// 通过该静态对象在程序结束时自动析构的特点，来释放外层类的对象资源
-static CRelease release;
-static mutex mtx; //要声明为静态，静态成员函数只能访问静态数据成员和静态成员函数
-</code></pre>
-<p>};<br>Singleton* Singleton::single &#x3D; nullptr;<br>Singleton::CRelease Singleton::release;</p>
-<p>‘’’</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(single == <span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//获取锁</span></span><br><span class="line">            <span class="keyword">if</span>(single == <span class="literal">nullptr</span>) <span class="comment">//锁加双重判断，第一个if是保证了只有第一次创建对象时加锁解锁，保证了效率</span></span><br><span class="line">                                  <span class="comment">//第二个if是保证了多个线程进入后不会建立多个对象</span></span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">                single = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//释放锁</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> single;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>()&#123;cout &lt;&lt; <span class="string">&quot;create&quot;</span> &lt;&lt; endl;&#125;;</span><br><span class="line">    ~<span class="built_in">Singleton</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;delete&quot;</span> &lt;&lt;endl;</span><br><span class="line">			<span class="comment">//delete single;</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="type">static</span> Singleton* single;</span><br><span class="line">	<span class="comment">// 定义一个嵌套类，在该类的析构函数中，自动释放外层类的资源</span></span><br><span class="line">	<span class="keyword">class</span> <span class="title class_">CRelease</span></span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		~<span class="built_in">CRelease</span>() &#123; <span class="keyword">delete</span> single; &#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="comment">// 通过该静态对象在程序结束时自动析构的特点，来释放外层类的对象资源</span></span><br><span class="line">	<span class="type">static</span> CRelease release;</span><br><span class="line">    <span class="type">static</span> mutex mtx; <span class="comment">//要声明为静态，静态成员函数只能访问静态数据成员和静态成员函数</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">Singleton* Singleton::single = <span class="literal">nullptr</span>;</span><br><span class="line">Singleton::CRelease Singleton::release;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
 <p>另一种保证线程安全且能在main结束后自动释放对象的写法：</p>
-<p>‘’’<br>#include <iostream><br>using namespace std;</p>
-<p>class CSingleton<br>{<br>public:<br>    static CSingleton* getInstance()<br>    {<br>        static CSingleton single; &#x2F;&#x2F; 懒汉式单例模式，定义唯一的对象实例，已经将拷贝构造和析构声明为private了，在类外无法拷贝赋值和调用析构，所以返回的是single的地址，而不是single本身<br>        return &single;<br>    }<br>private:<br>    CSingleton() { cout &lt;&lt; “CSingleton()” &lt;&lt; endl; }<br>    <del>CSingleton() { cout &lt;&lt; “</del>CSingleton()” &lt;&lt; endl;}<br>    CSingleton(const CSingleton&amp;);<br>};<br>int main()<br>{<br>    CSingleton *p1 &#x3D; CSingleton::getInstance();<br>    CSingleton *p2 &#x3D; CSingleton::getInstance();<br>    CSingleton *p3 &#x3D; CSingleton::getInstance();<br>    return 0;<br>}<br>‘’’<br>对于static静态局部变量的初始化，编译器会自动对它的初始化进行加锁和解锁控制，使静态局部变量的初始化成为线程安全的操作，不用担心多个线程都会初始化静态局部变量，因此上面的懒汉单例模式是线程安全的单例模式</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CSingleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">static</span> CSingleton* <span class="title">getInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="type">static</span> CSingleton single; <span class="comment">// 懒汉式单例模式，定义唯一的对象实例，已经将拷贝构造和析构声明为private了，在类外无法拷贝赋值和调用析构，所以返回的是single的地址，而不是single本身</span></span><br><span class="line">		<span class="keyword">return</span> &amp;single;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">CSingleton</span>() &#123; cout &lt;&lt; <span class="string">&quot;CSingleton()&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">	~<span class="built_in">CSingleton</span>() &#123; cout &lt;&lt; <span class="string">&quot;~CSingleton()&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="built_in">CSingleton</span>(<span class="type">const</span> CSingleton&amp;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	CSingleton *p1 = CSingleton::<span class="built_in">getInstance</span>();</span><br><span class="line">	CSingleton *p2 = CSingleton::<span class="built_in">getInstance</span>();</span><br><span class="line">	CSingleton *p3 = CSingleton::<span class="built_in">getInstance</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于static静态局部变量的初始化，编译器会自动对它的初始化进行加锁和解锁控制，使静态局部变量的初始化成为线程安全的操作，不用担心多个线程都会初始化静态局部变量，因此上面的懒汉单例模式是线程安全的单例模式</p>
 <p>静态局部变量的生命周期贯穿整个程序的运行时间，但是它们的初始化是延迟的，也就是说，它们只在首次被引用时初始化。这是C++标准中静态局部变量的一个重要特性，称为“Magic Statics”（也称作“函数内的静态局部变量”或“局部静态变量”）。</p>
 <p>当你在函数内部声明一个静态局部变量时，这个变量的存储空间在程序开始运行时就已经被分配了，但是它的初始化会被推迟到该函数首次被调用，且到达该变量声明的时候。一旦初始化完成，该变量的值就会在程序的后续调用中保持不变，直到程序结束。</p>
 <p>静态变量*******</p>
 <h4 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h4><p>在类加载时已经创建好了该单例对象，等待程序使用<br>在编码时就已经指明了要马上创建这个对象，不需要等到被调用时再去创建。<br><img src="/2024/04/04/4-4/image-2.png" alt="alt text"></p>
-<p>‘’’<br>class Singleton<br>{<br>public:<br>    static Singleton* getInstance()<br>    {<br>        return &single;<br>    }<br>private:<br>    Singleton();<br>    ~Singleton();<br>    static Singleton single;<br>}<br>Singleton Singleton::single;<br>‘’’</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &amp;single;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">Singleton</span>();</span><br><span class="line">    ~<span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="type">static</span> Singleton single;</span><br><span class="line">&#125;</span><br><span class="line">Singleton Singleton::single;</span><br></pre></td></tr></table></figure>
+
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/04/04/4-4/" data-id="clum12hwt0003i8w4f7w006o8" data-title="4-4" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/04/04/4-4/" data-id="clum19jiq0001ecw4g1cj4308" data-title="4-4" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -194,7 +159,7 @@ static mutex mtx; //要声明为静态，静态成员函数只能访问静态数
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/04/01/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E9%A1%B9%E7%9B%AE/" data-id="clum12hwu0004i8w46loyhnm5" data-title="线程池项目" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/04/01/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E9%A1%B9%E7%9B%AE/" data-id="clum19jit0004ecw4dlgt2j8a" data-title="线程池项目" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -278,7 +243,7 @@ V操作：资源数-1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/30/3-30-1/" data-id="clum12hwn0000i8w4b4u89lxj" data-title="3-30" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/03/30/3-30-1/" data-id="clum19jin0000ecw44wc74dsa" data-title="3-30" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -333,7 +298,7 @@ V操作：资源数-1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/26/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" data-id="clum12hwr0001i8w43ofp4ked" data-title="实验报告" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/03/26/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" data-id="clum19jis0003ecw48wusde8x" data-title="实验报告" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -384,7 +349,7 @@ V操作：资源数-1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/25/hello-world/" data-id="clum12hws0002i8w4gdvrejj8" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/03/25/hello-world/" data-id="clum19jir0002ecw4ecg0d6pr" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
